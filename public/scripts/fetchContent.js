@@ -1,4 +1,10 @@
-import { menuData, reviewData, teamData, galleryData } from "../data/data.js";
+import {
+  menuData,
+  reviewData,
+  teamData,
+  galleryData,
+  faqData,
+} from "../data/data.js";
 
 export function generateMenuContent() {
   const menuContainer = document.querySelector(".menu_box");
@@ -123,5 +129,40 @@ export function generateGalleryContent() {
     `;
 
     galleryContainer.innerHTML += galleryCard;
+  });
+}
+
+export function generateFaqContent() {
+  const faqContainer = document.querySelector("#faqAccordion");
+  faqContainer.innerHTML = ""; // Clear existing content
+
+  faqData.forEach((faq, index) => {
+    const faqCard = `
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeading${index}">
+          <button
+            class="accordion-button ${index === 0 ? "" : "collapsed"}"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#faq${index}"
+            aria-expanded="${index === 0 ? "true" : "false"}"
+            aria-controls="faq${index}"
+          >
+            ${faq.question}
+          </button>
+        </h2>
+        <div
+          id="faq${index}"
+          class="accordion-collapse collapse ${index === 0 ? "show" : ""}"
+          aria-labelledby="faqHeading${index}"
+          data-bs-parent="#faqAccordion"
+        >
+          <div class="accordion-body">
+            ${faq.answer}
+          </div>
+        </div>
+      </div>
+    `;
+    faqContainer.innerHTML += faqCard;
   });
 }

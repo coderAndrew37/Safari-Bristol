@@ -1,10 +1,11 @@
 import "./fetchContent.js";
-
+import "./menuToggle.js";
 import {
   generateMenuContent,
   generateReviewContent,
   generateTeamContent,
   generateGalleryContent,
+  generateFaqContent, // Generate FAQ section
 } from "./fetchContent.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generateReviewContent();
   generateTeamContent();
   generateGalleryContent();
+  generateFaqContent(); // Generate FAQ section
 
   // Smooth scroll effect
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

@@ -1,6 +1,6 @@
 // Navbar Elements
-const mobileMenuButton = document.getElementById("mobile-menu");
-const mobileNav = document.getElementById("mobile-nav");
+const mobileMenuButton = document.getElementById("mobile-menu-button"); // Fixed the id to match the HTML
+const mobileNav = document.getElementById("menu"); // Ensure the menu id matches your HTML
 
 // Menu toggle functionality with smooth transition
 mobileMenuButton.addEventListener("click", () => {
@@ -24,7 +24,7 @@ window.addEventListener("resize", () => {
 });
 
 // Close menu when a link is clicked (mobile only)
-const navLinks = document.querySelectorAll("#mobile-nav a");
+const navLinks = document.querySelectorAll("#menu a");
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
     if (window.innerWidth < 768) {

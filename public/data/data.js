@@ -3,96 +3,96 @@ export const menuData = [
     name: "Burger",
     image: "/images/buger.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$200.00",
+      "A delicious beef patty served with fresh lettuce, tomatoes, and a special sauce, all inside a soft toasted bun.",
+    price: "KSh 2,500.00",
     rating: 4.5,
   },
   {
     name: "Pasta",
     image: "/images/pasta.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "Creamy Alfredo pasta with grilled chicken, mushrooms, and a hint of garlic, served with parmesan.",
+    price: "KSh 1,500.00",
     rating: 4.5,
   },
   {
     name: "Lasagna",
     image: "/images/lasagna.webp",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "Layers of pasta, rich meat sauce, melted cheese, and aromatic herbs baked to perfection.",
+    price: "KSh 1,800.00",
     rating: 4.5,
   },
   {
     name: "Drink",
     image: "/images/chocolate_Drink.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "A smooth and rich chocolate drink perfect for those who enjoy a sweet treat to complement their meal.",
+    price: "KSh 600.00",
     rating: 4.5,
   },
   {
     name: "Pizza",
     image: "/images/pizza.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "A crispy thin crust pizza topped with mozzarella cheese, pepperoni, and a blend of fresh vegetables.",
+    price: "KSh 1,200.00",
     rating: 4.5,
   },
   {
     name: "Hot Dog",
     image: "/images/Hot_dog.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "Grilled sausage served in a soft bun, topped with mustard, ketchup, and pickles.",
+    price: "KSh 500.00",
     rating: 4.5,
   },
   {
     name: "Juice",
     image: "/images/juse.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "Freshly squeezed juice from the finest fruits, perfect for a refreshing drink any time of the day.",
+    price: "KSh 350.00",
     rating: 4.5,
   },
   {
     name: "Biryani",
     image: "/images/biryani.webp",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "Aromatic spiced rice dish with tender chicken, vegetables, and a rich blend of traditional spices.",
+    price: "KSh 1,800.00",
     rating: 4.5,
   },
   {
     name: "Chocolate",
     image: "/images/chocolate.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "A rich and creamy chocolate dessert that melts in your mouth, perfect for satisfying your sweet cravings.",
+    price: "KSh 800.00",
     rating: 4.5,
   },
   {
     name: "Ice Cream",
     image: "/images/ice_cream.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "Creamy and delicious ice cream with a variety of flavors, perfect for cooling down on a hot day.",
+    price: "KSh 500.00",
     rating: 4.5,
   },
   {
     name: "Spanchi",
     image: "/images/Spanchi.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "A traditional Spanish dish, featuring savory and tender meatballs served with a flavorful sauce.",
+    price: "KSh 1,500.00",
     rating: 4.5,
   },
   {
     name: "Sandwich",
     image: "/images/sandwich.jpg",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum assumenda voluptates",
-    price: "$20.00",
+      "A classic sandwich made with fresh bread, loaded with deli meats, cheese, and crisp vegetables.",
+    price: "KSh 700.00",
     rating: 4.5,
   },
 ];
@@ -275,5 +275,32 @@ export const galleryData = [
     description:
       "A refreshing bowl of seasonal fruits for a healthy and tasty treat.",
     link: "#",
+  },
+];
+
+// FAQ Data
+export const faqData = [
+  {
+    question: "What are your operating hours?",
+    answer: "We operate from 8:00 AM to 10:00 PM daily, including weekends.",
+  },
+  {
+    question: "Do you offer delivery services?",
+    answer:
+      "Yes, we deliver across Nairobi and its suburbs within 30-45 minutes.",
+  },
+  {
+    question: "Are your meals halal?",
+    answer: "Yes, all our meals are prepared with halal-certified ingredients.",
+  },
+  {
+    question: "Can I customize my order?",
+    answer:
+      "Yes, we offer customization for most menu items. Contact us for special requests.",
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept mobile money (M-Pesa), credit cards, and cash on delivery.",
   },
 ];
