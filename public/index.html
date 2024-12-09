@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="font-idcSans text-idcText bg-idcBackground">
+    <!-- Home Section -->
+    <section id="Home" class="relative">
+      <nav
+        class="fixed w-full bg-white shadow-md z-50 flex items-center justify-between px-8 py-4"
+      >
+        <div class="logo">
+          <img src="/images/logo.png" class="w-24 cursor-pointer" />
+        </div>
+        <ul class="flex gap-6">
+          <li><a href="#Home" class="hover:text-idcPrimary">Home</a></li>
+          <li><a href="#About" class="hover:text-idcPrimary">About</a></li>
+          <li><a href="#Menu" class="hover:text-idcPrimary">Menu</a></li>
+          <li><a href="#Gallary" class="hover:text-idcPrimary">Gallery</a></li>
+          <li><a href="#Review" class="hover:text-idcPrimary">Review</a></li>
+          <li><a href="#Order" class="hover:text-idcPrimary">Order</a></li>
+        </ul>
+        <div class="flex gap-4">
+          <i class="fa-solid fa-magnifying-glass hover:text-idcPrimary"></i>
+          <i class="fa-solid fa-heart hover:text-idcPrimary"></i>
+          <i class="fa-solid fa-cart-shopping hover:text-idcPrimary"></i>
+        </div>
+      </nav>
+      <div
+        class="flex flex-col-reverse lg:flex-row items-center justify-between mt-32 px-8"
+      >
+        <div>
+          <h1 class="text-4xl lg:text-6xl font-bold leading-tight">
+            Get Fresh <span class="text-idcPrimary">Food</span><br />
+            in an Easy Way
+          </h1>
+          <p class="mt-6 text-lg leading-relaxed max-w-xl">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
+            nobis deleniti amet non inventore. Reprehenderit recusandae
+            voluptatibus!
+          </p>
+          <a
+            href="#"
+            class="inline-block mt-4 bg-idcPrimary text-white px-6 py-3 rounded-lg"
+          >
+            Order Now <i class="fa-solid fa-angle-right"></i>
+          </a>
+        </div>
+        <div>
+          <img src="/images/main_img.png" class="w-full max-w-md lg:max-w-xl" />
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <div id="About" class="bg-idcAccent py-20">
+      <div
+        class="container mx-auto flex flex-col-reverse lg:flex-row items-center gap-10"
+      >
+        <img src="/images/Food-Plate.png" class="w-full lg:w-1/2" />
+        <div>
+          <h1 class="text-4xl font-bold">
+            <span class="text-idcPrimary">About</span> Us
+          </h1>
+          <h3 class="text-2xl mt-4">Why Choose Us?</h3>
+          <p class="text-lg mt-4 leading-relaxed">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
+            sapiente veritatis laboriosam corrupti maxime.
+          </p>
+          <a
+            href="#"
+            class="inline-block mt-6 bg-idcPrimary text-white px-6 py-3 rounded-lg"
+          >
+            Order Now
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Section -->
+    <div id="Menu" class="py-20">
+      <h1 class="text-center text-4xl font-bold">
+        Our <span class="text-idcPrimary">Menu</span>
+      </h1>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8 mt-12 menu_box"
+      >
+        <!-- Content injected here -->
+      </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="Gallary" class="py-20 bg-gray-100">
+      <h1 class="text-center text-4xl font-bold">
+        Our <span class="text-idcPrimary">Gallery</span>
+      </h1>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8 mt-12 gallary_image_box"
+      >
+        <!-- Content injected here -->
+      </div>
+    </div>
+
+    <!-- Review Section -->
+    <div id="Review" class="py-20">
+      <h1 class="text-center text-4xl font-bold">
+        Customer <span class="text-idcPrimary">Reviews</span>
+      </h1>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8 mt-12 review_box"
+      >
+        <!-- Content injected here -->
+      </div>
+    </div>
+
+    <!-- Order Section -->
+    <div id="Order" class="py-20 bg-idcAccent">
+      <h1 class="text-center text-4xl font-bold">
+        <span class="text-idcPrimary">Order</span> Now
+      </h1>
+      <div class="flex flex-col lg:flex-row items-center justify-around mt-12">
+        <img src="/images/order_image.png" class="w-full lg:w-1/2 max-w-sm" />
+        <form class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 lg:mt-0">
+          <div>
+            <label class="block text-lg">Name</label>
+            <input
+              type="text"
+              placeholder="Your name"
+              class="w-full border p-2 rounded"
+            />
+          </div>
+          <div>
+            <label class="block text-lg">Email</label>
+            <input
+              type="email"
+              placeholder="Your email"
+              class="w-full border p-2 rounded"
+            />
+          </div>
+          <div>
+            <label class="block text-lg">Number</label>
+            <input
+              type="text"
+              placeholder="Your number"
+              class="w-full border p-2 rounded"
+            />
+          </div>
+          <div>
+            <label class="block text-lg">How Much</label>
+            <input
+              type="number"
+              placeholder="How many orders"
+              class="w-full border p-2 rounded"
+            />
+          </div>
+          <div>
+            <label class="block text-lg">Your Order</label>
+            <input
+              type="text"
+              placeholder="Food name"
+              class="w-full border p-2 rounded"
+            />
+          </div>
+          <div>
+            <label class="block text-lg">Address</label>
+            <input
+              type="text"
+              placeholder="Your address"
+              class="w-full border p-2 rounded"
+            />
+          </div>
+          <button class="col-span-2 bg-idcPrimary text-white py-2 rounded">
+            Order Now
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Team Section -->
+    <div id="Team" class="py-20">
+      <h1 class="text-center text-4xl font-bold">
+        Our <span class="text-idcPrimary">Team</span>
+      </h1>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8 mt-12 team_box"
+      >
+        <!-- Content injected here -->
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-200 py-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 px-8">
+        <div>
+          <h2 class="text-xl font-bold">Location</h2>
+          <p class="mt-2">Sri Lanka</p>
+          <p>USA</p>
+          <p>India</p>
+          <p>Japan</p>
+          <p>Italy</p>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold">Quick Links</h2>
+          <p class="mt-2">Home</p>
+          <p>About</p>
+          <p>Menu</p>
+          <p>Gallery</p>
+          <p>Order</p>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold">Contact</h2>
+          <p class="mt-2">+94 12 3456 789</p>
+          <p>+94 25 5568456</p>
+          <p>johndeo123@gmail.com</p>
+          <p>foodshop123@gmail.com</p>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold">Our Services</h2>
+          <p class="mt-2">Fast Delivery</p>
+          <p>Easy Payments</p>
+          <p>24 x 7 Service</p>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold">Follow Us</h2>
+          <div class="flex gap-4 mt-2">
+            <i class="fa-brands fa-facebook-f"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-linkedin-in"></i>
+          </div>
+        </div>
+      </div>
+      <p class="text-center mt-10 text-gray-600">
+        Design by <span class="text-idcPrimary font-bold">WT Master Code</span>
+      </p>
+    </footer>
+
+    <script type="module" src="/scripts/index.js"></script>
+  </body>
+</html>
