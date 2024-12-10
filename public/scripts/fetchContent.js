@@ -4,7 +4,32 @@ import {
   teamData,
   galleryData,
   faqData,
+  categoriesData,
 } from "../data/data.js";
+
+export function generateCategoriesContent() {
+  const categoriesContainer = document.querySelector(".categories_box");
+  categoriesContainer.innerHTML = ""; // Clear existing content
+
+  categoriesData.forEach((category) => {
+    const categoryCard = `
+      <a
+        href="${category.link}"
+        class="block bg-white shadow-md hover:shadow-lg rounded-lg p-6 text-center"
+      >
+        <img
+          src="${category.image}"
+          alt="${category.name}"
+          class="w-full h-32 object-cover rounded-md"
+        />
+        <h2 class="mt-4 text-xl font-bold">${category.name}</h2>
+        <p class="mt-2 text-gray-600">${category.description}</p>
+      </a>
+    `;
+
+    categoriesContainer.innerHTML += categoryCard;
+  });
+}
 
 export function generateMenuContent() {
   const menuContainer = document.querySelector(".menu_box");

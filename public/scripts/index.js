@@ -6,6 +6,7 @@ import {
   generateTeamContent,
   generateGalleryContent,
   generateFaqContent, // Generate FAQ section
+  generateCategoriesContent,
 } from "./fetchContent.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generateTeamContent();
   generateGalleryContent();
   generateFaqContent(); // Generate FAQ section
+  generateCategoriesContent();
 
   // Smooth scroll effect
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

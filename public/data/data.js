@@ -215,7 +215,34 @@ export const menuData = [
   },
 ];
 
-// Review Data
+// Categories
+export const categoriesData = [
+  {
+    name: "Main Meals",
+    image: "/images/main_meals.jpeg",
+    description: "Delicious main courses to satisfy your hunger.",
+    link: "categories.html?slug=main-meals",
+  },
+  {
+    name: "Snacks",
+    image: "/images/snacks.jpeg",
+    description: "Light and tasty bites for any occasion.",
+    link: "categories.html?slug=snacks",
+  },
+  {
+    name: "Beverages",
+    image: "/images/beverages.jpeg",
+    description: "Refreshing drinks to quench your thirst.",
+    link: "categories.html?slug=beverage",
+  },
+  {
+    name: "Desserts",
+    image: "/images/desserts.jpeg",
+    description: "Sweet treats to finish your meal.",
+    link: "categories.html?slug=dessert",
+  },
+];
+
 // Review Data
 export const reviewData = [
   {
