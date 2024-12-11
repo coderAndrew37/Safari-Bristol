@@ -1,7 +1,7 @@
 // login.js
 import { baseUrl } from "./constants.js";
 
-document.getElementById("login-form").addEventListener("submit", async (e) => {
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const email = document.getElementById("email").value;

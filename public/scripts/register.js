@@ -1,7 +1,7 @@
 import { baseUrl } from "./constants.js";
 
 document
-  .getElementById("register-form")
+  .getElementById("signupForm") // Use the correct ID from the HTML
   .addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -19,11 +19,9 @@ document
       const data = await response.json();
 
       if (response.ok) {
-        // Store user details in local storage if needed for frontend display
         localStorage.setItem("username", data.username);
         localStorage.setItem("email", data.email);
 
-        // Redirect to the login page or homepage after registration
         window.location.href = "/";
       } else if (response.status === 400) {
         alert(data.message || "Registration failed. Please check your input.");

@@ -1,12 +1,18 @@
-function togglePassword(inputId) {
-  const passwordInput = document.getElementById(inputId);
-  const toggleButton = passwordInput.nextElementSibling;
+// passwordToggle.js
+document.addEventListener("DOMContentLoaded", () => {
+  // Select all toggle buttons
+  const toggleButtons = document.querySelectorAll("[id^='togglePassword']");
 
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    toggleButton.innerHTML = "&#128083;"; // Closed eye icon
-  } else {
-    passwordInput.type = "password";
-    toggleButton.innerHTML = "&#128065;"; // Open eye icon
-  }
-}
+  toggleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const input = button.previousElementSibling; // Find the associated input field
+      if (input && input.type === "password") {
+        input.type = "text";
+        button.textContent = "Hide";
+      } else if (input) {
+        input.type = "password";
+        button.textContent = "Show";
+      }
+    });
+  });
+});
