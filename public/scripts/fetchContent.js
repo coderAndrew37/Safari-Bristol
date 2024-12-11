@@ -33,7 +33,7 @@ export function generateCategoriesContent() {
 
 export function generateMenuContent() {
   const menuContainer = document.querySelector(".menu_box");
-  menuContainer.innerHTML = ""; // Clear any existing content
+  menuContainer.innerHTML = ""; // Clear existing content
 
   menuData.forEach((item) => {
     const fullStars = Math.floor(item.rating);
@@ -49,24 +49,21 @@ export function generateMenuContent() {
     `;
 
     const menuCard = `
-      <div class="shadow-lg rounded-lg overflow-hidden bg-white">
-        <div class="menu_image">
-          <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover">
-        </div>
-        <div class="relative p-4">
-          <div class="small_card absolute top-2 right-2 bg-gray-200 w-12 h-12 flex items-center justify-center rounded-full opacity-0 hover:opacity-100 transition-opacity">
-            <i class="fa-solid fa-heart text-gray-600"></i>
-          </div>
-          <h2 class="text-xl font-bold text-idcPrimary">${item.name}</h2>
-          <p class="text-gray-700 mt-2 text-sm">${item.description}</p>
-          <h3 class="mt-4 text-lg font-semibold">${item.price}</h3>
-          <div class="menu_icon mt-4">${starsHTML}</div>
-          <a href="#" class="menu_btn mt-4 block bg-black text-white py-2 px-4 text-center rounded-lg hover:bg-gray-800 transition-colors">
-            Order Now
-          </a>
-        </div>
-      </div>
-    `;
+  <div class="shadow-lg rounded-lg overflow-hidden bg-white">
+    <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" />
+    <div class="p-4">
+      <h2 class="text-xl font-bold text-idcPrimary">${item.name}</h2>
+      <p class="text-gray-700 mt-2">${item.description}</p>
+      <h3 class="mt-4 text-lg font-semibold">${item.price}</h3>
+      <div class="menu_icon mt-4">${starsHTML}</div>
+      <button 
+        class="menu_btn bg-black text-white py-2 px-4 rounded-lg mt-4 hover:bg-gray-800 js-add-to-cart" 
+        data-product-id="${item.id}">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+`;
 
     menuContainer.innerHTML += menuCard;
   });

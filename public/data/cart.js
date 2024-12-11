@@ -1,10 +1,13 @@
 import { baseUrl } from "../scripts/constants.js";
+
+/**
+ * Fetch the user's cart data and update the cart quantity in the UI.
+ */
 export async function updateCartQuantity() {
   try {
-    // Fetch the user's cart data from the backend
     const response = await fetch(`${baseUrl}/api/cart/get-cart`, {
       method: "GET",
-      credentials: "include", // Ensure authenticated requests
+      credentials: "include", // Authenticated request
     });
 
     if (!response.ok) {
@@ -15,103 +18,95 @@ export async function updateCartQuantity() {
     const data = await response.json();
     const cart = data.cart || [];
 
-    // Calculate total quantity of items in the cart
+    // Calculate total items in the cart
     const cartQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
-    // Update cart quantity display in the header and checkout links
+    // Update cart quantity in the header
     const cartQuantityElement = document.querySelector(".js-cart-quantity");
-    const checkoutHeaderLink = document.querySelector(".return-to-home-link");
-
     if (cartQuantityElement) {
       cartQuantityElement.textContent = cartQuantity;
-    }
-
-    if (checkoutHeaderLink) {
-      checkoutHeaderLink.textContent = `Checkout (${cartQuantity} items)`;
     }
   } catch (error) {
     console.error("Error fetching cart data:", error);
   }
 }
 
-// Add product to the cart using backend API
+/**
+ * Add a product to the cart.
+ * @param {string} productId - The product ID to add.
+ * @param {number} quantity - Quantity to add (default: 1).
+ */
 export async function addToCart(productId, quantity = 1) {
   try {
-    // Send a POST request to add the product to the backend-managed cart
     const response = await fetch(`${baseUrl}/api/cart/add-to-cart`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ productId, quantity }),
-      credentials: "include", // Include credentials for authenticated requests
+      credentials: "include", // Authenticated request
     });
 
     if (!response.ok) {
-      const data = await response.json();
-      alert(data.message || "Failed to add product to cart.");
+      const errorData = await response.json();
+      alert(errorData.message || "Failed to add product to cart.");
       return;
     }
 
-    const data = await response.json();
-    console.log("Product added to cart:", data);
-
-    // Update the cart quantity in the UI
-    updateCartQuantity();
+    await updateCartQuantity(); // Refresh cart quantity
+    alert("Product added to cart!");
   } catch (error) {
     console.error("Error adding product to cart:", error);
-    alert("An error occurred. Please try again.");
+    alert("An error occurred while adding to cart.");
   }
 }
 
-// Remove an item from the cart using backend API
+/**
+ * Remove a product from the cart.
+ * @param {string} productId - The product ID to remove.
+ */
 export async function removeFromCart(productId) {
   try {
-    const response = await fetch(`${baseUrl}/api/cart/remove-from-cart`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ productId }),
-      credentials: "include", // Include credentials for authenticated requests
-    });
+    const response = await fetch(
+      `${baseUrl}/api/cart/remove-from-cart/${productId}`,
+      {
+        method: "DELETE",
+        credentials: "include", // Authenticated request
+      }
+    );
 
     if (!response.ok) {
-      const data = await response.json();
-      alert(data.message || "Failed to remove product from cart.");
+      const errorData = await response.json();
+      alert(errorData.message || "Failed to remove product from cart.");
       return;
     }
 
-    console.log("Product removed from cart.");
-
-    // Update the cart quantity in the UI after removal
-    updateCartQuantity();
+    await updateCartQuantity(); // Refresh cart quantity
+    alert("Product removed from cart!");
   } catch (error) {
     console.error("Error removing product from cart:", error);
-    alert("An error occurred. Please try again.");
+    alert("An error occurred while removing from cart.");
   }
 }
 
-// Clear all items from the cart using backend API
+/**
+ * Clear all items from the cart.
+ */
 export async function clearCart() {
   try {
     const response = await fetch(`${baseUrl}/api/cart/clear-cart`, {
       method: "DELETE",
-      credentials: "include", // Include credentials for authenticated requests
+      credentials: "include", // Authenticated request
     });
 
     if (!response.ok) {
-      const data = await response.json();
-      alert(data.message || "Failed to clear the cart.");
+      const errorData = await response.json();
+      alert(errorData.message || "Failed to clear the cart.");
       return;
     }
 
-    console.log("Cart cleared.");
-
-    // Update the cart quantity in the UI after clearing
-    updateCartQuantity();
+    await updateCartQuantity(); // Refresh cart quantity
+    alert("Cart cleared!");
   } catch (error) {
     console.error("Error clearing the cart:", error);
-    alert("An error occurred. Please try again.");
+    alert("An error occurred while clearing the cart.");
   }
 }

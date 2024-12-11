@@ -1,4 +1,3 @@
-import "./fetchContent.js";
 import "./menuToggle.js";
 import {
   generateMenuContent,
@@ -8,14 +7,17 @@ import {
   generateFaqContent, // Generate FAQ section
   generateCategoriesContent,
 } from "./fetchContent.js";
+import { initAddToCartListeners } from "./utils/cartUtils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   generateMenuContent();
   generateReviewContent();
   generateTeamContent();
   generateGalleryContent();
-  generateFaqContent(); // Generate FAQ section
+  generateFaqContent();
   generateCategoriesContent();
+
+  initAddToCartListeners(); // Attach Add to Cart listeners
 
   // Smooth scroll effect
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

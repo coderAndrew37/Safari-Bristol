@@ -30,7 +30,7 @@
           <img src="/images/logo.png" alt="Logo" class="w-24 cursor-pointer" />
         </div>
 
-        <!-- Menu (single menu for all screen sizes) -->
+        <!-- Menu -->
         <button
           id="mobile-menu-button"
           class="text-2xl text-gray-700 hover:text-idcPrimary lg:hidden"
@@ -47,10 +47,22 @@
           <li><a href="#Menu" class="hover:text-idcPrimary">Menu</a></li>
           <li><a href="#Gallary" class="hover:text-idcPrimary">Gallery</a></li>
           <li><a href="#Review" class="hover:text-idcPrimary">Review</a></li>
+
+          <!-- Cart Link -->
           <li>
-            <a href="#Order" class="hover:text-idcPrimary flex items-center">
-              <i class="fa-solid fa-shopping-cart"></i>
+            <a href="/cart.html" class="hover:text-idcPrimary">
+              Cart (<span class="js-cart-quantity">0</span>)
             </a>
+          </li>
+
+          <!-- Auth Button -->
+          <li>
+            <button
+              id="auth-button"
+              class="bg-idcPrimary text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors js-auth-button"
+            >
+              Login
+            </button>
           </li>
         </ul>
       </nav>
