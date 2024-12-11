@@ -5,7 +5,7 @@ const Joi = require("joi");
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true, minlength: 3, maxlength: 255 },
   category: { type: String, required: true },
-  slug: { type: String, required: true, unique: true },
+  slug: { type: String, required: true },
   image: { type: String, required: true },
   description: { type: String, required: true, minlength: 10 },
   priceCents: { type: Number, required: true }, // Store price in cents for consistency

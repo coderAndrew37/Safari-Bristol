@@ -6,6 +6,7 @@ import {
   faqData,
   categoriesData,
 } from "../data/data.js";
+import { generatePagination } from "./utils/paginationUtils.js";
 
 export function generateCategoriesContent() {
   const categoriesContainer = document.querySelector(".categories_box");
@@ -31,42 +32,76 @@ export function generateCategoriesContent() {
   });
 }
 
-export function generateMenuContent() {
+export async function generateMenuContent() {
   const menuContainer = document.querySelector(".menu_box");
   menuContainer.innerHTML = ""; // Clear existing content
 
-  menuData.forEach((item) => {
-    const fullStars = Math.floor(item.rating);
-    const halfStars = item.rating % 1 > 0 ? 1 : 0;
-
-    const starsHTML = `
-      ${'<i class="fa-solid fa-star text-yellow-500"></i>'.repeat(fullStars)}
-      ${
-        halfStars
-          ? '<i class="fa-solid fa-star-half-stroke text-yellow-500"></i>'
-          : ""
-      }
+  // Add loading skeletons
+  for (let i = 0; i < 4; i++) {
+    menuContainer.innerHTML += `
+      <div class="shadow-lg rounded-lg overflow-hidden bg-white" aria-hidden="true">
+        <div class="p-4">
+          <h2 class="text-xl font-bold placeholder-glow">
+            <span class="placeholder col-6"></span>
+          </h2>
+          <p class="text-gray-700 mt-2 placeholder-glow">
+            <span class="placeholder col-8"></span>
+            <span class="placeholder col-4"></span>
+          </p>
+          <h3 class="mt-4 text-lg font-semibold placeholder-glow">
+            <span class="placeholder col-4"></span>
+          </h3>
+          <button class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></button>
+        </div>
+      </div>
     `;
+  }
 
-    const menuCard = `
-  <div class="shadow-lg rounded-lg overflow-hidden bg-white">
-    <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" />
-    <div class="p-4">
-      <h2 class="text-xl font-bold text-idcPrimary">${item.name}</h2>
-      <p class="text-gray-700 mt-2">${item.description}</p>
-      <h3 class="mt-4 text-lg font-semibold">${item.price}</h3>
-      <div class="menu_icon mt-4">${starsHTML}</div>
-      <button 
-        class="menu_btn bg-black text-white py-2 px-4 rounded-lg mt-4 hover:bg-gray-800 js-add-to-cart" 
-        data-product-id="${item.id}">
-        Add to Cart
-      </button>
-    </div>
-  </div>
-`;
+  try {
+    // Fetch products
+    const response = await fetch("/api/products");
+    const { products, currentPage, totalPages } = await response.json();
 
-    menuContainer.innerHTML += menuCard;
-  });
+    // Clear skeletons and display products
+    menuContainer.innerHTML = "";
+    products.forEach((product) => {
+      const starsHTML = `
+        ${'<i class="fa-solid fa-star text-yellow-500"></i>'.repeat(
+          Math.floor(product.rating?.stars || 0)
+        )}
+        ${
+          product.rating?.stars % 1 > 0
+            ? '<i class="fa-solid fa-star-half-stroke text-yellow-500"></i>'
+            : ""
+        }
+      `;
+
+      const menuCard = `
+        <div class="shadow-lg rounded-lg overflow-hidden bg-white">
+          <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <h2 class="text-xl font-bold text-idcPrimary">${product.name}</h2>
+            <p class="text-gray-700 mt-2">${product.description}</p>
+            <h3 class="mt-4 text-lg font-semibold">${product.formattedPrice}</h3>
+            <div class="menu_icon mt-4">${starsHTML}</div>
+            <button 
+              class="menu_btn bg-black text-white py-2 px-4 rounded-lg mt-4 hover:bg-gray-800 js-add-to-cart" 
+              data-product-id="${product._id}">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      `;
+
+      menuContainer.innerHTML += menuCard;
+    });
+
+    // Generate pagination
+    generatePagination(currentPage, totalPages, generateMenuContent);
+  } catch (error) {
+    console.error("Error fetching menu content:", error);
+    menuContainer.innerHTML = `<p class="text-center text-red-500">Failed to load products. Please try again later.</p>`;
+  }
 }
 
 export function generateReviewContent() {

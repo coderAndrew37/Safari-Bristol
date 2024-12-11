@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const authMiddleware = require("../middleware/auth.js");
 const router = express.Router();
 const User = require("../models/user.js");
-const DeliveryOption = require("../models/deiveryOption.js");
 
 // Fetch the products in the cart with delivery options
 router.get("/get-cart", authMiddleware, async (req, res) => {

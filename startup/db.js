@@ -14,7 +14,7 @@ module.exports = function () {
   };
 
   mongoose
-    .connect(mongoURI, mongooseOptions)
+    .connect(mongoURI)
     .then(() => logger.info("Connected to MongoDB"))
     .catch((err) => {
       logger.error("Could not connect to MongoDB", err);
