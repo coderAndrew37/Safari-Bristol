@@ -7,6 +7,7 @@ import {
   categoriesData,
 } from "../data/data.js";
 import { generatePagination } from "./utils/paginationUtils.js";
+import { initAddToCartListeners } from "./utils/cartUtils.js";
 
 export function generateCategoriesContent() {
   const categoriesContainer = document.querySelector(".categories_box");
@@ -32,7 +33,7 @@ export function generateCategoriesContent() {
   });
 }
 
-export async function generateMenuContent() {
+export async function generateMenuContent(page = 1) {
   const menuContainer = document.querySelector(".menu_box");
   menuContainer.innerHTML = ""; // Clear existing content
 
@@ -58,24 +59,12 @@ export async function generateMenuContent() {
   }
 
   try {
-    // Fetch products
-    const response = await fetch("/api/products");
+    const response = await fetch(`/api/products?page=${page}`);
     const { products, currentPage, totalPages } = await response.json();
 
     // Clear skeletons and display products
     menuContainer.innerHTML = "";
     products.forEach((product) => {
-      const starsHTML = `
-        ${'<i class="fa-solid fa-star text-yellow-500"></i>'.repeat(
-          Math.floor(product.rating?.stars || 0)
-        )}
-        ${
-          product.rating?.stars % 1 > 0
-            ? '<i class="fa-solid fa-star-half-stroke text-yellow-500"></i>'
-            : ""
-        }
-      `;
-
       const menuCard = `
         <div class="shadow-lg rounded-lg overflow-hidden bg-white">
           <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover" />
@@ -83,7 +72,6 @@ export async function generateMenuContent() {
             <h2 class="text-xl font-bold text-idcPrimary">${product.name}</h2>
             <p class="text-gray-700 mt-2">${product.description}</p>
             <h3 class="mt-4 text-lg font-semibold">${product.formattedPrice}</h3>
-            <div class="menu_icon mt-4">${starsHTML}</div>
             <button 
               class="menu_btn bg-black text-white py-2 px-4 rounded-lg mt-4 hover:bg-gray-800 js-add-to-cart" 
               data-product-id="${product._id}">
@@ -92,12 +80,14 @@ export async function generateMenuContent() {
           </div>
         </div>
       `;
-
       menuContainer.innerHTML += menuCard;
     });
 
     // Generate pagination
     generatePagination(currentPage, totalPages, generateMenuContent);
+
+    // Initialize Add to Cart buttons
+    initAddToCartListeners();
   } catch (error) {
     console.error("Error fetching menu content:", error);
     menuContainer.innerHTML = `<p class="text-center text-red-500">Failed to load products. Please try again later.</p>`;

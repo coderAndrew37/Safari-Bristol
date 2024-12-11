@@ -1,40 +1,36 @@
 export function generatePagination(currentPage, totalPages, fetchData) {
   const paginationContainer = document.querySelector(".pagination");
-  paginationContainer.innerHTML = "";
+  paginationContainer.innerHTML = ""; // Clear previous pagination
 
-  const createPageItem = (page, isActive = false, isDisabled = false) => `
-    <li class="page-item ${isActive ? "active" : ""} ${
-    isDisabled ? "disabled" : ""
-  }">
-      <a class="page-link" href="#" data-page="${page}">${page}</a>
+  // Create Previous button
+  paginationContainer.innerHTML += `
+    <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+      <a class="page-link" href="#" data-page="${currentPage - 1}">Previous</a>
     </li>
   `;
 
-  // Add "Previous" button
-  paginationContainer.innerHTML += createPageItem(
-    currentPage - 1,
-    false,
-    currentPage === 1
-  );
-
-  // Add page numbers
+  // Create page numbers
   for (let i = 1; i <= totalPages; i++) {
-    paginationContainer.innerHTML += createPageItem(i, i === currentPage);
+    paginationContainer.innerHTML += `
+      <li class="page-item ${i === currentPage ? "active" : ""}">
+        <a class="page-link" href="#" data-page="${i}">${i}</a>
+      </li>
+    `;
   }
 
-  // Add "Next" button
-  paginationContainer.innerHTML += createPageItem(
-    currentPage + 1,
-    false,
-    currentPage === totalPages
-  );
+  // Create Next button
+  paginationContainer.innerHTML += `
+    <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
+      <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
+    </li>
+  `;
 
-  // Add click event listeners
+  // Add event listeners for pagination
   paginationContainer.querySelectorAll(".page-link").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      const page = parseInt(link.getAttribute("data-page"), 10);
-      if (!isNaN(page)) {
+      const page = parseInt(link.dataset.page, 10);
+      if (!isNaN(page) && page >= 1 && page <= totalPages) {
         fetchData(page);
       }
     });

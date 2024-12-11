@@ -30,7 +30,7 @@ export function initAddToCartListeners() {
 
   buttons.forEach((button) => {
     button.addEventListener("click", async () => {
-      button.disabled = true; // Prevent double-clicks
+      button.disabled = true; // Prevent multiple clicks
 
       const productId = button.dataset.productId;
       if (!productId) {
@@ -49,7 +49,7 @@ export function initAddToCartListeners() {
       }
 
       await addToCart(productId);
-      button.disabled = false;
+      button.disabled = false; // Re-enable button
     });
   });
 }
