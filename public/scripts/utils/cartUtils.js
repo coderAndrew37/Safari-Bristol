@@ -25,6 +25,9 @@ export async function isAuthenticated() {
 /**
  * Initialize Add to Cart buttons.
  */
+/**
+ * Initialize Add to Cart buttons.
+ */
 export function initAddToCartListeners() {
   const buttons = document.querySelectorAll(".js-add-to-cart");
 
@@ -39,6 +42,15 @@ export function initAddToCartListeners() {
         return;
       }
 
+      // Retrieve the selected quantity from the dropdown
+      const quantitySelector = button
+        .closest(".p-4") // Adjust this selector to locate the product container
+        .querySelector(".js-quantity-selector");
+      const quantity = quantitySelector
+        ? parseInt(quantitySelector.value, 10)
+        : 1;
+
+      // Check if the user is authenticated
       const authenticated = await isAuthenticated();
       if (!authenticated) {
         if (confirm("You must log in to add items to your cart. Log in now?")) {
@@ -48,7 +60,8 @@ export function initAddToCartListeners() {
         return;
       }
 
-      await addToCart(productId);
+      // Add the product with the selected quantity
+      await addToCart(productId, quantity);
       button.disabled = false; // Re-enable button
     });
   });

@@ -33,14 +33,17 @@ export async function updateCart(productId, quantity) {
  * @param {string} message - The message to display.
  */
 function showNotification(message) {
+  console.log("Notification triggered:", message); // Debug log
+
   const notification = document.createElement("div");
   notification.className =
-    "fixed top-4 right-4 bg-idcPrimary text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2";
+    "fixed top-4 right-4 bg-idcPrimary text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 z-50";
   notification.innerHTML = `<i class="fa-solid fa-check"></i> ${message}`;
   document.body.appendChild(notification);
 
   // Remove notification after 3 seconds
   setTimeout(() => {
+    console.log("Notification removed");
     notification.remove();
   }, 3000);
 }

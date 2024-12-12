@@ -6,11 +6,90 @@
     <title>Categories</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <header>
-      <h1 class="text-center text-4xl font-bold mt-6" id="category-title"></h1>
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+      <nav class="flex items-center justify-between px-6 py-4">
+        <!-- Logo -->
+        <a href="/">
+          <div class="logo">
+            <img
+              src="/images/logo.png"
+              alt="Logo"
+              class="w-24 cursor-pointer"
+            />
+          </div>
+        </a>
+
+        <!-- Main Menu -->
+        <ul
+          id="menu"
+          class="hidden lg:flex lg:items-center gap-6 absolute lg:relative lg:bg-transparent lg:w-auto bg-white top-full left-0 right-0 shadow-md lg:shadow-none flex-col lg:flex-row p-6 lg:p-0"
+        >
+          <!-- Login Button -->
+          <li>
+            <button
+              id="auth-button"
+              class="js-auth-button bg-idcPrimary text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors order-first lg:order-none"
+            >
+              Login
+            </button>
+          </li>
+          <li><a href="/" class="hover:text-idcPrimary">Home</a></li>
+
+          <!-- Cart Icon -->
+          <li>
+            <a
+              href="/checkout.html"
+              id="cart-icon"
+              class="relative flex items-center"
+            >
+              <i
+                class="fa-solid fa-cart-shopping text-2xl lg:text-3xl text-gray-700 hover:text-idcPrimary"
+              ></i>
+              <span
+                class="absolute -top-2 -right-2 bg-idcPrimary text-white text-xs lg:text-sm rounded-full px-2 lg:px-3 js-cart-quantity"
+              >
+                0
+              </span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Mobile Menu -->
+        <div class="flex items-center lg:hidden gap-4">
+          <!-- Cart Icon -->
+          <a href="/checkout.html" class="relative">
+            <i
+              class="fa-solid fa-cart-shopping text-2xl text-gray-700 hover:text-idcPrimary"
+            ></i>
+            <span
+              class="absolute -top-2 -right-2 bg-idcPrimary text-white text-xs rounded-full px-2 js-cart-quantity"
+            >
+              0
+            </span>
+          </a>
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-button"
+            class="text-2xl text-gray-700 hover:text-idcPrimary"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </nav>
     </header>
+
+    <!-- Categories -->
+    <h1 class="text-center text-4xl font-bold mt-6" id="category-title"></h1>
     <main
       class="container mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8"
       id="category-content"
@@ -18,5 +97,11 @@
       <!-- Items dynamically injected -->
     </main>
     <script src="/scripts/categories.js" type="module"></script>
+
+    <!-- Font Awesome  -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
