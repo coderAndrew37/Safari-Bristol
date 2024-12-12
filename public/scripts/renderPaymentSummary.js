@@ -10,7 +10,7 @@ export function renderPaymentSummary(cartItems = [], deliveryOptions = []) {
   const productTotalCents = calculateProductTotal(cartItems);
   const shippingTotalCents = calculateShippingTotal(cartItems, deliveryOptions);
   const totalBeforeTaxCents = productTotalCents + shippingTotalCents;
-  const estimatedTaxCents = Math.round(totalBeforeTaxCents * 0.1); // Assuming 10% tax
+  const estimatedTaxCents = Math.round(totalBeforeTaxCents * 0.1);
   const totalCents = totalBeforeTaxCents + estimatedTaxCents;
 
   const paymentSummaryContainer = document.querySelector(".js-payment-summary");
@@ -20,24 +20,24 @@ export function renderPaymentSummary(cartItems = [], deliveryOptions = []) {
   }
 
   paymentSummaryContainer.innerHTML = `
-    <div class="text-lg font-bold">Payment Summary</div>
-    <div class="flex justify-between">
+    <div class="text-2xl font-bold text-idcText mb-4">Payment Summary</div>
+    <div class="flex justify-between text-idcText">
       <span>Items (${cartItems.length}):</span>
       <span>Ksh ${formatCurrency(productTotalCents)}</span>
     </div>
-    <div class="flex justify-between">
+    <div class="flex justify-between text-idcText">
       <span>Shipping:</span>
       <span>Ksh ${formatCurrency(shippingTotalCents)}</span>
     </div>
-    <div class="flex justify-between font-semibold">
+    <div class="flex justify-between text-idcText font-semibold">
       <span>Tax (10%):</span>
       <span>Ksh ${formatCurrency(estimatedTaxCents)}</span>
     </div>
-    <div class="flex justify-between text-xl font-bold mt-4">
+    <div class="flex justify-between text-xl font-bold mt-4 text-idcPrimary">
       <span>Total:</span>
       <span>Ksh ${formatCurrency(totalCents)}</span>
     </div>
-    <button class="bg-blue-500 text-white px-4 py-2 mt-6 rounded place-order-button">
+    <button class="bg-idcPrimary text-white px-4 py-2 mt-6 rounded place-order-button">
       Place Order
     </button>
   `;

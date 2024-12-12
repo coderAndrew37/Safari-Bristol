@@ -19,18 +19,21 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto mt-24">
-      <div class="flex flex-col-reverse lg:flex-row gap-8">
-        <!-- Payment Summary -->
+    <main class="container mx-auto mt-24 font-idcSans">
+      <!-- Responsive Grid Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <!-- Order Summary (60% on large screens) -->
         <div
-          class="lg:order-2 bg-white p-4 rounded-lg shadow js-payment-summary"
+          class="lg:col-span-3 bg-white p-6 rounded-xl shadow js-order-summary lg:ml-4"
         >
-          <!-- Payment summary dynamically injected here -->
+          <!-- Order summary dynamically injected here -->
         </div>
 
-        <!-- Order Summary -->
-        <div class="lg:order-1 bg-white p-4 rounded-lg shadow js-order-summary">
-          <!-- Order summary dynamically injected here -->
+        <!-- Payment Summary (40% on large screens) -->
+        <div
+          class="lg:col-span-2 bg-white p-6 rounded-xl shadow js-payment-summary lg:mr-4"
+        >
+          <!-- Payment summary dynamically injected here -->
         </div>
       </div>
     </main>

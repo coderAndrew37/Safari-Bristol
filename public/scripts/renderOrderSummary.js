@@ -17,8 +17,8 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
         ) || deliveryOptions[0];
 
       return `
-        <div class="border p-4 rounded mb-4 shadow-sm">
-          <div class="text-green-800 text-sm mb-2">
+        <div class="border p-4 rounded-xl mb-4 shadow-sm">
+          <div class="text-idcPrimary text-sm mb-2">
             Estimated Delivery: <span class="font-semibold">${calculateDeliveryDate(
               currentDeliveryOption.deliveryDays
             )}</span>
@@ -28,12 +28,12 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
               item.image
             }" class="w-20 h-20 object-cover rounded" alt="${item.name}" />
             <div>
-              <h3 class="text-lg font-semibold">${item.name}</h3>
-              <p class="text-green-800 text-sm">Ksh ${formatCurrency(
+              <h3 class="text-xl font-semibold">${item.name}</h3>
+              <p class="text-idcPrimary text-lg">Ksh ${formatCurrency(
                 item.priceCents
               )}</p>
               <div class="mt-2">
-                <label class="text-sm font-medium">Quantity:</label>
+                <label class="text-idcText text-sm font-medium">Quantity:</label>
                 <select
                   id="quantity-${item.productId}"
                   class="border rounded px-2 py-1 mt-1 js-quantity-select"
@@ -53,7 +53,7 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
           </div>
           <div class="mt-4 flex justify-between items-center">
             <div class="text-sm">
-              <h4 class="font-semibold text-black">Delivery Options:</h4>
+              <h4 class="font-semibold text-idcText">Delivery Options:</h4>
               ${deliveryOptions
                 .map(
                   (option) => `
@@ -62,10 +62,10 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
                       type="radio"
                       name="delivery-option-${item.productId}"
                       value="${option.id}"
-                      class="mr-2"
+                      class="mr-2 accent-idcPrimary"
                       ${option.id === currentDeliveryOption.id ? "checked" : ""}
                     />
-                    <span class="text-black">${
+                    <span class="text-idcText">${
                       option.deliveryDays
                     } days (Ksh ${formatCurrency(option.priceCents)})</span>
                   </label>
@@ -74,7 +74,7 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
                 .join("")}
             </div>
             <div class="flex gap-4">
-              <button class="text-blue-500 hover:underline font-medium js-update-item" data-product-id="${
+              <button class="text-idcPrimary hover:underline font-medium js-update-item" data-product-id="${
                 item.productId
               }">
                 Update
@@ -92,11 +92,11 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
     .join("");
 
   orderSummaryContainer.innerHTML = `
-    <h2 class="text-xl font-bold mb-4">Order Summary</h2>
+    <h2 class="text-2xl font-bold mb-4 text-idcText">Order Summary</h2>
     ${orderItemsHTML}
   `;
 
-  attachEventListeners(cartItems, deliveryOptions); // Reattach event listeners
+  attachEventListeners(cartItems, deliveryOptions);
 }
 
 function attachEventListeners(cartItems, deliveryOptions) {
