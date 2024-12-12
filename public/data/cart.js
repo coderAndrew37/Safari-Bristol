@@ -41,11 +41,11 @@ function showNotification(message) {
   notification.innerHTML = `<i class="fa-solid fa-check"></i> ${message}`;
   document.body.appendChild(notification);
 
-  // Remove notification after 3 seconds
+  // Remove notification after 2 seconds
   setTimeout(() => {
     console.log("Notification removed");
     notification.remove();
-  }, 3000);
+  }, 2000);
 }
 
 /**
@@ -69,7 +69,7 @@ export async function addToCart(productId, quantity = 1) {
     }
 
     await updateCartQuantity(); // Refresh cart quantity
-    showNotification("Added to cart!"); // Show success notification
+    showNotification("Added!"); // Show success notification
   } catch (error) {
     console.error("Error adding product to cart:", error);
   }

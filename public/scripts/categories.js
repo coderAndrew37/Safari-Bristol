@@ -1,5 +1,7 @@
 import { initAddToCartListeners } from "./utils/cartUtils.js";
 import { renderProductCard } from "./utils/productCardUtils.js";
+import { updateCartQuantity } from "../data/cart.js";
+import "./authButton.js";
 
 // Get slug from URL
 const params = new URLSearchParams(window.location.search);
