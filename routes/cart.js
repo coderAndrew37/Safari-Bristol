@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const authMiddleware = require("../middleware/auth.js");
-const router = express.Router();
+const DeliveryOption = require("../models/deliveryOption"); // Import delivery options model
 const User = require("../models/user.js");
+const router = express.Router();
 
 // Fetch the products in the cart with delivery options
 router.get("/get-cart", authMiddleware, async (req, res) => {
@@ -11,12 +12,12 @@ router.get("/get-cart", authMiddleware, async (req, res) => {
 
     if (!user) return res.status(404).json({ message: "User not found." });
 
-    // Sample delivery options
-    const deliveryOptions = [
-      { id: "1", deliveryDays: 3, priceCents: 5000 },
-      { id: "2", deliveryDays: 7, priceCents: 2000 },
-      { id: "3", deliveryDays: 10, priceCents: 0 },
-    ];
+    // Fetch delivery options from the database
+    const deliveryOptions = await DeliveryOption.find({});
+
+    if (!deliveryOptions || deliveryOptions.length === 0) {
+      return res.status(404).json({ message: "No delivery options found." });
+    }
 
     res.status(200).json({ cart: user.cart, deliveryOptions });
   } catch (error) {

@@ -1,4 +1,3 @@
-// renderPaymentSummary.js
 import { formatCurrency } from "./utils/money.js";
 
 /**
@@ -44,7 +43,7 @@ export function renderPaymentSummary(cartItems = [], deliveryOptions = []) {
 }
 
 /**
- * Calculate total product price in cart.
+ * Calculate total product price in the cart.
  * @param {Array} cart - List of cart items.
  * @returns {number} Total product price in cents.
  */
@@ -56,7 +55,7 @@ function calculateProductTotal(cart) {
 }
 
 /**
- * Calculate total shipping cost.
+ * Calculate total shipping cost based on selected delivery options.
  * @param {Array} cart - List of cart items.
  * @param {Array} options - Delivery options.
  * @returns {number} Total shipping cost in cents.

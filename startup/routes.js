@@ -5,6 +5,7 @@ const passwordReset = require("../routes/passwordReset.js");
 const contacts = require("../routes/contacts.js");
 const newsletter = require("../routes/newsletter.js");
 const orders = require("../routes/orders.js");
+const deliveryOptions = require("../routes/deliveryOptions.js");
 module.exports = function (app) {
   app.use("/api/products", products);
   app.use("/api/users", auth);
@@ -13,4 +14,5 @@ module.exports = function (app) {
   app.use("/api/contacts", contacts);
   app.use("/api/newsletter", newsletter); // Added the newsletter route
   app.use("/api/orders", orders);
+  app.use("/api/delivery-options", deliveryOptions); // Added the delivery options route
 };
