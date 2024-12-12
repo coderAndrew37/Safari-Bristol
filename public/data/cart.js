@@ -1,6 +1,34 @@
 import { baseUrl } from "../scripts/constants.js";
 
 /**
+ * Update the quantity of a product in the cart.
+ * @param {string} productId - The product ID to update.
+ * @param {number} quantity - The new quantity for the product.
+ */
+export async function updateCart(productId, quantity) {
+  try {
+    const response = await fetch(`${baseUrl}/api/cart/update-cart`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId, quantity }),
+      credentials: "include", // Authenticated request
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Failed to update product quantity:", errorData.message);
+      return false;
+    }
+
+    console.log("Product quantity updated successfully.");
+    return true;
+  } catch (error) {
+    console.error("Error updating product quantity:", error);
+    return false;
+  }
+}
+
+/**
  * Fetch the user's cart data and update the cart quantity in the UI.
  */
 export async function updateCartQuantity() {

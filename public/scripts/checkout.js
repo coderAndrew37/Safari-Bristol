@@ -6,7 +6,7 @@ let cartItems = [];
 let deliveryOptions = [];
 let totalCents = 0;
 
-// Fetch cart items and delivery options
+// Fetch cart items and product details
 async function fetchCartData() {
   try {
     const response = await fetch("/api/cart/get-cart", {
@@ -14,7 +14,23 @@ async function fetchCartData() {
     });
     if (response.ok) {
       const { cart, deliveryOptions: options } = await response.json();
-      cartItems = cart || [];
+      const productIds = cart.map((item) => item.productId).join(",");
+
+      const productResponse = await fetch(
+        `/api/products/by-ids?ids=${productIds}`
+      );
+      const products = await productResponse.json();
+
+      cartItems = cart.map((item) => {
+        const product = products.find((p) => p._id === item.productId) || {};
+        return {
+          ...item,
+          name: product.name || "Unknown Product",
+          image: product.image || "/images/default-product.png",
+          priceCents: product.priceCents || 0,
+        };
+      });
+
       deliveryOptions = options || [];
     } else {
       console.warn("Failed to fetch cart data.");
@@ -25,7 +41,7 @@ async function fetchCartData() {
 }
 
 // Render the payment summary
-async function renderPaymentSummary() {
+function renderPaymentSummary() {
   const productTotalCents = calculateProductTotal(cartItems);
   const shippingTotalCents = calculateShippingTotal(cartItems, deliveryOptions);
   const totalBeforeTaxCents = productTotalCents + shippingTotalCents;
@@ -34,7 +50,7 @@ async function renderPaymentSummary() {
 
   const paymentSummaryContainer = document.querySelector(".js-payment-summary");
   paymentSummaryContainer.innerHTML = `
-    <div class="text-lg font-bold">Order Summary</div>
+    <div class="text-lg font-bold">Payment Summary</div>
     <div class="flex justify-between">
       <span>Items (${cartItems.length}):</span>
       <span>Ksh ${formatCurrency(productTotalCents)}</span>
@@ -75,58 +91,10 @@ function calculateShippingTotal(cart, options) {
   }, 0);
 }
 
-// Prefill user details in the form
-async function prefillOrderForm() {
-  try {
-    const response = await fetch("/api/users/profile", {
-      credentials: "include",
-    });
-    if (response.ok) {
-      const { name, email } = await response.json();
-      document.getElementById("name").value = name || "";
-      document.getElementById("email").value = email || "";
-    }
-  } catch (error) {
-    console.error("Error fetching user profile:", error);
-  }
-}
-
-// Submit the order
-async function submitOrder() {
-  const formData = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    address: document.getElementById("address").value,
-    paymentMethod: "Cash on Delivery",
-    items: cartItems,
-    totalCents,
-  };
-
-  try {
-    const response = await fetch("/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    });
-
-    if (response.ok) {
-      document.getElementById("orderDetailsModal").style.display = "none";
-      document.getElementById("confirmationModal").style.display = "block";
-    } else {
-      console.error("Error placing order:", await response.json());
-    }
-  } catch (error) {
-    console.error("Error submitting order:", error);
-  }
-}
-
 // Initialize the page
 document.addEventListener("DOMContentLoaded", async () => {
   await fetchCartData();
-  renderOrderSummary(cartItems, deliveryOptions); // Render order details
-  await renderPaymentSummary();
+  renderOrderSummary(cartItems, deliveryOptions);
+  renderPaymentSummary();
   updateCartQuantity(); // Update cart quantity in header
-  prefillOrderForm();
 });
