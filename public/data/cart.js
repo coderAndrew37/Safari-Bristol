@@ -103,15 +103,17 @@ export async function removeFromCart(productId) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      alert(errorData.message || "Failed to remove product from cart.");
-      return;
+      console.error("Failed to remove product from cart:", errorData.message);
+      return false;
     }
 
-    await updateCartQuantity(); // Refresh cart quantity
-    alert("Product removed from cart!");
+    // Refresh cart quantity silently
+    await updateCartQuantity();
+    console.log("Product removed from cart successfully.");
+    return true;
   } catch (error) {
     console.error("Error removing product from cart:", error);
-    alert("An error occurred while removing from cart.");
+    return false;
   }
 }
 

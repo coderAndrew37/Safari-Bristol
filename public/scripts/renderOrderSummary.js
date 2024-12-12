@@ -1,4 +1,5 @@
 import { formatCurrency } from "./utils/money.js";
+import { renderPaymentSummary } from "./renderPaymentSummary.js";
 import {
   updateCart,
   removeFromCart,
@@ -7,11 +8,6 @@ import {
 
 export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
   const orderSummaryContainer = document.querySelector(".js-order-summary");
-
-  if (!orderSummaryContainer) {
-    console.error("Order summary container not found.");
-    return;
-  }
 
   const orderItemsHTML = cartItems
     .map((item) => {
@@ -22,20 +18,18 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
 
       return `
         <div class="border p-4 rounded mb-4 shadow-sm">
-          <div class="text-green-600 text-sm mb-2">
+          <div class="text-green-800 text-sm mb-2">
             Estimated Delivery: <span class="font-semibold">${calculateDeliveryDate(
               currentDeliveryOption.deliveryDays
             )}</span>
           </div>
           <div class="flex gap-4">
-            <img
-              src="${item.image}"
-              class="w-20 h-20 object-cover rounded"
-              alt="${item.name}"
-            />
+            <img src="${
+              item.image
+            }" class="w-20 h-20 object-cover rounded" alt="${item.name}" />
             <div>
               <h3 class="text-lg font-semibold">${item.name}</h3>
-              <p class="text-green-600 text-sm">Ksh ${formatCurrency(
+              <p class="text-green-800 text-sm">Ksh ${formatCurrency(
                 item.priceCents
               )}</p>
               <div class="mt-2">
@@ -59,7 +53,7 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
           </div>
           <div class="mt-4 flex justify-between items-center">
             <div class="text-sm">
-              <h4 class="font-semibold text-gray-700">Delivery Options:</h4>
+              <h4 class="font-semibold text-black">Delivery Options:</h4>
               ${deliveryOptions
                 .map(
                   (option) => `
@@ -71,7 +65,7 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
                       class="mr-2"
                       ${option.id === currentDeliveryOption.id ? "checked" : ""}
                     />
-                    <span class="text-green-600">${
+                    <span class="text-black">${
                       option.deliveryDays
                     } days (Ksh ${formatCurrency(option.priceCents)})</span>
                   </label>
@@ -80,16 +74,14 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
                 .join("")}
             </div>
             <div class="flex gap-4">
-              <button
-                class="text-blue-500 hover:underline font-medium js-update-item"
-                data-product-id="${item.productId}"
-              >
+              <button class="text-blue-500 hover:underline font-medium js-update-item" data-product-id="${
+                item.productId
+              }">
                 Update
               </button>
-              <button
-                class="text-red-500 hover:underline font-medium js-delete-item"
-                data-product-id="${item.productId}"
-              >
+              <button class="text-red-500 hover:underline font-medium js-delete-item" data-product-id="${
+                item.productId
+              }">
                 Delete
               </button>
             </div>
@@ -104,10 +96,10 @@ export function renderOrderSummary(cartItems = [], deliveryOptions = []) {
     ${orderItemsHTML}
   `;
 
-  attachEventListeners(cartItems);
+  attachEventListeners(cartItems, deliveryOptions); // Reattach event listeners
 }
 
-function attachEventListeners(cartItems) {
+function attachEventListeners(cartItems, deliveryOptions) {
   document.querySelectorAll(".js-update-item").forEach((button) => {
     button.addEventListener("click", async (event) => {
       const productId = event.target.dataset.productId;
@@ -116,14 +108,13 @@ function attachEventListeners(cartItems) {
 
       const success = await updateCart(productId, newQuantity);
       if (success) {
-        // Update the item quantity locally
         const itemIndex = cartItems.findIndex(
           (item) => item.productId === productId
         );
         if (itemIndex !== -1) cartItems[itemIndex].quantity = newQuantity;
 
-        // Re-render the summary
         renderOrderSummary(cartItems, deliveryOptions);
+        renderPaymentSummary(cartItems, deliveryOptions); // Update payment summary
       }
     });
   });
@@ -133,14 +124,13 @@ function attachEventListeners(cartItems) {
       const productId = event.target.dataset.productId;
       const success = await removeFromCart(productId);
       if (success) {
-        // Remove the item locally
         const itemIndex = cartItems.findIndex(
           (item) => item.productId === productId
         );
         if (itemIndex !== -1) cartItems.splice(itemIndex, 1);
 
-        // Re-render the summary
         renderOrderSummary(cartItems, deliveryOptions);
+        renderPaymentSummary(cartItems, deliveryOptions); // Update payment summary
       }
     });
   });

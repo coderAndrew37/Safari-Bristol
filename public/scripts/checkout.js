@@ -1,10 +1,9 @@
 import { updateCartQuantity } from "../data/cart.js";
 import { renderOrderSummary } from "./renderOrderSummary.js";
-import { formatCurrency } from "./utils/money.js";
+import { renderPaymentSummary } from "./renderPaymentSummary.js";
 
 let cartItems = [];
 let deliveryOptions = [];
-let totalCents = 0;
 
 // Fetch cart items and product details
 async function fetchCartData() {
@@ -15,7 +14,6 @@ async function fetchCartData() {
     if (response.ok) {
       const { cart, deliveryOptions: options } = await response.json();
       const productIds = cart.map((item) => item.productId).join(",");
-
       const productResponse = await fetch(
         `/api/products/by-ids?ids=${productIds}`
       );
@@ -40,61 +38,15 @@ async function fetchCartData() {
   }
 }
 
-// Render the payment summary
-function renderPaymentSummary() {
-  const productTotalCents = calculateProductTotal(cartItems);
-  const shippingTotalCents = calculateShippingTotal(cartItems, deliveryOptions);
-  const totalBeforeTaxCents = productTotalCents + shippingTotalCents;
-  const estimatedTaxCents = Math.round(totalBeforeTaxCents * 0.1); // Assuming 10% tax
-  totalCents = totalBeforeTaxCents + estimatedTaxCents;
-
-  const paymentSummaryContainer = document.querySelector(".js-payment-summary");
-  paymentSummaryContainer.innerHTML = `
-    <div class="text-lg font-bold">Payment Summary</div>
-    <div class="flex justify-between">
-      <span>Items (${cartItems.length}):</span>
-      <span>Ksh ${formatCurrency(productTotalCents)}</span>
-    </div>
-    <div class="flex justify-between">
-      <span>Shipping:</span>
-      <span>Ksh ${formatCurrency(shippingTotalCents)}</span>
-    </div>
-    <div class="flex justify-between font-semibold">
-      <span>Tax (10%):</span>
-      <span>Ksh ${formatCurrency(estimatedTaxCents)}</span>
-    </div>
-    <div class="flex justify-between text-xl font-bold mt-4">
-      <span>Total:</span>
-      <span>Ksh ${formatCurrency(totalCents)}</span>
-    </div>
-    <button class="bg-blue-500 text-white px-4 py-2 mt-6 rounded place-order-button">
-      Place Order
-    </button>
-  `;
-}
-
-// Calculate total product price in cart
-function calculateProductTotal(cart) {
-  return cart.reduce(
-    (total, item) => total + item.priceCents * item.quantity,
-    0
-  );
-}
-
-// Calculate total shipping cost
-function calculateShippingTotal(cart, options) {
-  return cart.reduce((total, item) => {
-    const selectedOption = options.find(
-      (option) => option.id === item.selectedDeliveryOption
-    );
-    return total + (selectedOption?.priceCents || 0);
-  }, 0);
+// Re-render both summaries on any cart update
+function updateUI() {
+  renderOrderSummary(cartItems, deliveryOptions);
+  renderPaymentSummary(cartItems, deliveryOptions);
 }
 
 // Initialize the page
 document.addEventListener("DOMContentLoaded", async () => {
   await fetchCartData();
-  renderOrderSummary(cartItems, deliveryOptions);
-  renderPaymentSummary();
-  updateCartQuantity(); // Update cart quantity in header
+  updateUI();
+  updateCartQuantity();
 });
