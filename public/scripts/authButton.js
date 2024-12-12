@@ -3,6 +3,11 @@ import { baseUrl } from "./constants.js";
 document.addEventListener("DOMContentLoaded", () => {
   const authButton = document.querySelector(".js-auth-button");
 
+  if (!authButton) {
+    console.error("Auth button not found in DOM.");
+    return;
+  }
+
   // Check if the user is authenticated
   async function isAuthenticated() {
     try {
@@ -41,13 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
     authButton.textContent = loggedIn ? "Logout" : "Login";
     authButton.onclick = loggedIn ? handleLogout : handleLogin;
 
-    // Set the button's appearance dynamically
-    authButton.style.backgroundColor = loggedIn ? "red" : "blue";
-    authButton.style.color = "white"; // Ensure text color is always visible
-    authButton.style.padding = "10px 15px";
-    authButton.style.border = "none";
-    authButton.style.borderRadius = "5px";
-    authButton.style.cursor = "pointer";
+    // Update button appearance dynamically
+    authButton.className = `js-auth-button px-4 py-2 rounded ${
+      loggedIn ? "bg-red-500 hover:bg-red-400" : "bg-blue-500 hover:bg-blue-400"
+    } text-white transition-all`;
   }
 
   // Redirect to the login page

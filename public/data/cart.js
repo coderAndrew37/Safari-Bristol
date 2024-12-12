@@ -29,6 +29,50 @@ export async function updateCart(productId, quantity) {
 }
 
 /**
+ * Display a notification message.
+ * @param {string} message - The message to display.
+ */
+function showNotification(message) {
+  const notification = document.createElement("div");
+  notification.className =
+    "fixed top-4 right-4 bg-idcPrimary text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2";
+  notification.innerHTML = `<i class="fa-solid fa-check"></i> ${message}`;
+  document.body.appendChild(notification);
+
+  // Remove notification after 3 seconds
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
+/**
+ * Add a product to the cart.
+ * @param {string} productId - The product ID to add.
+ * @param {number} quantity - Quantity to add (default: 1).
+ */
+export async function addToCart(productId, quantity = 1) {
+  try {
+    const response = await fetch(`${baseUrl}/api/cart/add-to-cart`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId, quantity }),
+      credentials: "include", // Authenticated request
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Failed to add product to cart:", errorData.message);
+      return;
+    }
+
+    await updateCartQuantity(); // Refresh cart quantity
+    showNotification("Added to cart!"); // Show success notification
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
+  }
+}
+
+/**
  * Fetch the user's cart data and update the cart quantity in the UI.
  */
 export async function updateCartQuantity() {
@@ -56,34 +100,6 @@ export async function updateCartQuantity() {
     }
   } catch (error) {
     console.error("Error fetching cart data:", error);
-  }
-}
-
-/**
- * Add a product to the cart.
- * @param {string} productId - The product ID to add.
- * @param {number} quantity - Quantity to add (default: 1).
- */
-export async function addToCart(productId, quantity = 1) {
-  try {
-    const response = await fetch(`${baseUrl}/api/cart/add-to-cart`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ productId, quantity }),
-      credentials: "include", // Authenticated request
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      alert(errorData.message || "Failed to add product to cart.");
-      return;
-    }
-
-    await updateCartQuantity(); // Refresh cart quantity
-    alert("Product added to cart!");
-  } catch (error) {
-    console.error("Error adding product to cart:", error);
-    alert("An error occurred while adding to cart.");
   }
 }
 

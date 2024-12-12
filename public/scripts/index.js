@@ -8,6 +8,8 @@ import {
   generateCategoriesContent,
 } from "./fetchContent.js";
 import { initAddToCartListeners } from "./utils/cartUtils.js";
+import { updateCartQuantity } from "../data/cart.js";
+import "./authButton.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   generateMenuContent();
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generateGalleryContent();
   generateFaqContent();
   generateCategoriesContent();
+  updateCartQuantity(); // Initialize cart quantity
 
   initAddToCartListeners(); // Attach Add to Cart listeners
 

@@ -30,41 +30,65 @@
           <img src="/images/logo.png" alt="Logo" class="w-24 cursor-pointer" />
         </div>
 
-        <!-- Menu -->
-        <button
-          id="mobile-menu-button"
-          class="text-2xl text-gray-700 hover:text-idcPrimary lg:hidden"
-        >
-          <i class="fa-solid fa-bars"></i>
-        </button>
-
+        <!-- Main Menu -->
         <ul
           id="menu"
           class="hidden lg:flex lg:items-center gap-6 absolute lg:relative lg:bg-transparent lg:w-auto bg-white top-full left-0 right-0 shadow-md lg:shadow-none flex-col lg:flex-row p-6 lg:p-0"
         >
+          <!-- Login Button -->
+          <li>
+            <button
+              id="auth-button"
+              class="js-auth-button bg-idcPrimary text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors order-first lg:order-none"
+            >
+              Login
+            </button>
+          </li>
           <li><a href="#Home" class="hover:text-idcPrimary">Home</a></li>
           <li><a href="#About" class="hover:text-idcPrimary">About</a></li>
           <li><a href="#Menu" class="hover:text-idcPrimary">Menu</a></li>
           <li><a href="#Gallary" class="hover:text-idcPrimary">Gallery</a></li>
           <li><a href="#Review" class="hover:text-idcPrimary">Review</a></li>
-
-          <!-- Cart Link -->
+          <!-- Cart Icon -->
           <li>
-            <a href="/checkout.html" class="hover:text-idcPrimary">
-              Cart (<span class="js-cart-quantity">0</span>)
+            <a
+              href="/checkout.html"
+              id="cart-icon"
+              class="relative flex items-center"
+            >
+              <i
+                class="fa-solid fa-cart-shopping text-2xl lg:text-3xl text-gray-700 hover:text-idcPrimary"
+              ></i>
+              <span
+                class="absolute -top-2 -right-2 bg-idcPrimary text-white text-xs lg:text-sm rounded-full px-2 lg:px-3 js-cart-quantity"
+              >
+                0
+              </span>
             </a>
           </li>
-
-          <!-- Auth Button -->
-          <li>
-            <button
-              id="auth-button"
-              class="bg-idcPrimary text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors js-auth-button"
-            >
-              Login
-            </button>
-          </li>
         </ul>
+
+        <!-- Mobile Menu -->
+        <div class="flex items-center lg:hidden gap-4">
+          <!-- Cart Icon -->
+          <a href="/checkout.html" class="relative">
+            <i
+              class="fa-solid fa-cart-shopping text-2xl text-gray-700 hover:text-idcPrimary"
+            ></i>
+            <span
+              class="absolute -top-2 -right-2 bg-idcPrimary text-white text-xs rounded-full px-2 js-cart-quantity"
+            >
+              0
+            </span>
+          </a>
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-button"
+            class="text-2xl text-gray-700 hover:text-idcPrimary"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
       </nav>
     </header>
 
