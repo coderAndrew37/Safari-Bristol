@@ -1,6 +1,9 @@
+// checkout.js
+
 import { updateCartQuantity } from "../data/cart.js";
 import { renderOrderSummary } from "./renderOrderSummary.js";
-import { renderPaymentSummary } from "./renderPaymentSummary.js";
+import { renderPaymentSummary, getTotalCents } from "./renderPaymentSummary.js";
+import { submitOrder } from "./orderPlacement.js";
 
 let cartItems = [];
 let deliveryOptions = [];
@@ -30,6 +33,7 @@ async function fetchCartData() {
       });
 
       deliveryOptions = options || [];
+      console.log("cartItems populated:", cartItems); // Debugging
     } else {
       console.warn("Failed to fetch cart data.");
     }
@@ -46,7 +50,20 @@ function updateUI() {
 
 // Initialize the page
 document.addEventListener("DOMContentLoaded", async () => {
-  await fetchCartData();
+  await fetchCartData(); // Ensure cartItems is populated
   updateUI();
   updateCartQuantity();
+
+  // Bind submitOrder after cartItems is populated
+  const formElement = document.getElementById("orderDetailsForm");
+
+  if (!formElement.hasAttribute("data-listener-added")) {
+    formElement.addEventListener("submit", (e) => {
+      const totalCents = getTotalCents(); // Fetch updated totalCents
+      console.log("cartItems before submit:", cartItems); // Debugging
+      console.log("totalCents before submit:", totalCents); // Debugging
+      submitOrder(e, totalCents, cartItems); // Pass cartItems explicitly
+    });
+    formElement.setAttribute("data-listener-added", "true");
+  }
 });

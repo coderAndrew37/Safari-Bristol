@@ -1,16 +1,15 @@
 import { formatCurrency } from "./utils/money.js";
+import { setupModalListeners } from "./orderPlacement.js"; // Ensure this is exported
 
-/**
- * Renders the payment summary dynamically.
- * @param {Array} cartItems - List of items in the cart.
- * @param {Array} deliveryOptions - Available delivery options.
- */
+// Declare totalCents as a module-level variable
+let totalCents = 0;
+
 export function renderPaymentSummary(cartItems = [], deliveryOptions = []) {
   const productTotalCents = calculateProductTotal(cartItems);
   const shippingTotalCents = calculateShippingTotal(cartItems, deliveryOptions);
   const totalBeforeTaxCents = productTotalCents + shippingTotalCents;
   const estimatedTaxCents = Math.round(totalBeforeTaxCents * 0.1);
-  const totalCents = totalBeforeTaxCents + estimatedTaxCents;
+  totalCents = totalBeforeTaxCents + estimatedTaxCents; // Update the declared variable
 
   const paymentSummaryContainer = document.querySelector(".js-payment-summary");
   if (!paymentSummaryContainer) {
@@ -36,17 +35,20 @@ export function renderPaymentSummary(cartItems = [], deliveryOptions = []) {
       <span>Total:</span>
       <span>Ksh ${formatCurrency(totalCents)}</span>
     </div>
-    <button class="bg-idcPrimary text-white px-4 py-2 mt-6 rounded place-order-button">
+    <button class="place-order-button bg-blue-500 text-white px-4 py-2 rounded-md">
       Place Order
     </button>
   `;
+
+  // Re-bind modal event listeners after rendering
+  setupModalListeners();
 }
 
-/**
- * Calculate total product price in the cart.
- * @param {Array} cart - List of cart items.
- * @returns {number} Total product price in cents.
- */
+// Export totalCents for external use
+export function getTotalCents() {
+  return totalCents;
+}
+
 function calculateProductTotal(cart) {
   return cart.reduce(
     (total, item) => total + item.priceCents * item.quantity,
@@ -54,12 +56,6 @@ function calculateProductTotal(cart) {
   );
 }
 
-/**
- * Calculate total shipping cost based on selected delivery options.
- * @param {Array} cart - List of cart items.
- * @param {Array} options - Delivery options.
- * @returns {number} Total shipping cost in cents.
- */
 function calculateShippingTotal(cart, options) {
   return cart.reduce((total, item) => {
     const selectedOption = options.find(
